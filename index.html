@@ -1,0 +1,1176 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="icon" href="data:," />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Nanum+Myeongjo:wght@700&display=swap" rel="stylesheet" />
+  <title>IB 탐색 카드</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f3f5f6;
+      --paper: #ffffff;
+      --paper-soft: #edf1f2;
+      --ink: #162028;
+      --muted: #52616b;
+      --line: #cbd4d8;
+      --line-strong: #94a4ab;
+      --navy: #14324a;
+      --navy-soft: #dce8ef;
+      --mint: #1e8b78;
+      --mint-soft: #d9eee9;
+      --amber: #b76d0b;
+      --amber-soft: #f7e8cb;
+      --coral: #b84b3d;
+      --coral-soft: #f8dfda;
+      --blue: #2d6ea6;
+      --blue-soft: #dceaf5;
+      --shadow: 0 16px 36px rgba(22, 32, 40, .10);
+      --radius-lg: 28px;
+      --radius-md: 18px;
+      --radius-sm: 11px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #11171b;
+        --paper: #192126;
+        --paper-soft: #222c32;
+        --ink: #edf3f5;
+        --muted: #afbdc4;
+        --line: #34434b;
+        --line-strong: #566872;
+        --navy: #91c9ea;
+        --navy-soft: #203b4b;
+        --mint: #72d4c0;
+        --mint-soft: #193d37;
+        --amber: #f0b65b;
+        --amber-soft: #43331c;
+        --coral: #f09183;
+        --coral-soft: #432824;
+        --blue: #84bdea;
+        --blue-soft: #20384a;
+        --shadow: 0 18px 42px rgba(0, 0, 0, .28);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "IBM Plex Sans KR", sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { font: inherit; }
+    a { color: inherit; }
+    svg { display: block; }
+
+    .skip-link {
+      position: fixed;
+      top: 8px;
+      left: 8px;
+      z-index: 30;
+      padding: 10px 14px;
+      background: var(--ink);
+      color: var(--paper);
+      transform: translateY(-140%);
+      transition: transform .18s ease;
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    .page {
+      width: min(1120px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 30px 0 80px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr);
+      gap: 48px;
+      min-height: 460px;
+      padding: clamp(30px, 5vw, 66px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 8px;
+      background: linear-gradient(var(--mint) 0 33%, var(--amber) 33% 66%, var(--coral) 66% 100%);
+    }
+    .hero-copy { align-self: center; max-width: 690px; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 18px;
+      color: var(--mint);
+      font-size: .87rem;
+      font-weight: 700;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 26px;
+      height: 2px;
+      background: currentColor;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      max-width: 12ch;
+      margin-bottom: 22px;
+      font-family: "Nanum Myeongjo", serif;
+      font-size: clamp(2.35rem, 6vw, 4.7rem);
+      line-height: 1.17;
+      letter-spacing: -.045em;
+    }
+    .hero-copy > p {
+      max-width: 590px;
+      margin-bottom: 28px;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.16rem);
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    .hero-signature {
+      display: block;
+      width: max-content;
+      margin-top: 18px;
+      color: var(--line-strong);
+      font-size: .76rem;
+      font-weight: 500;
+      letter-spacing: .04em;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 11px 19px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--ink);
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background .16s ease, border-color .16s ease, color .16s ease;
+    }
+    .button.primary { border-color: var(--navy); background: var(--navy); color: var(--paper); }
+    .button:hover { background: var(--paper-soft); }
+    .button.primary:hover { background: var(--mint); border-color: var(--mint); color: #fff; }
+    .button:focus-visible, .nav-chip:focus-visible, .answer:focus-visible, .flip-card:focus-visible, .profile-tab:focus-visible {
+      outline: 3px solid var(--amber);
+      outline-offset: 3px;
+    }
+
+    .hero-visual {
+      align-self: center;
+      min-height: 330px;
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+    .deck-card {
+      position: absolute;
+      width: min(250px, 76%);
+      aspect-ratio: 4 / 5;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: 0 18px 30px rgba(20, 50, 74, .14);
+    }
+    .deck-card.back { transform: translate(32px, -8px) rotate(7deg); background: var(--amber-soft); }
+    .deck-card.mid { transform: translate(-25px, 16px) rotate(-7deg); background: var(--mint-soft); }
+    .deck-card.front {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px;
+      background: var(--navy);
+      color: var(--paper);
+    }
+    .deck-num { font-size: .78rem; opacity: .8; }
+    .deck-question { margin: 0; font-family: "Nanum Myeongjo", serif; font-size: 1.6rem; line-height: 1.35; }
+    .deck-mark {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+    .deck-mark span { height: 8px; border-radius: 99px; background: rgba(255,255,255,.72); }
+    .deck-mark span:nth-child(2) { background: var(--amber); }
+    .deck-mark span:nth-child(3) { background: var(--mint); }
+
+    .quick-nav {
+      position: sticky;
+      top: 10px;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      margin: 18px auto 64px;
+      padding: 8px;
+      width: max-content;
+      max-width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--paper) 90%, transparent);
+      box-shadow: 0 10px 25px rgba(22, 32, 40, .08);
+      backdrop-filter: blur(12px);
+    }
+    .nav-chip {
+      padding: 9px 15px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .nav-chip:hover, .nav-chip.active { background: var(--navy); color: var(--paper); }
+
+    section { scroll-margin-top: 100px; margin-bottom: 86px; }
+    .section-heading {
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      align-items: start;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+    .section-number {
+      padding-top: 6px;
+      color: var(--line-strong);
+      font-size: .85rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+    }
+    h2 {
+      margin-bottom: 8px;
+      font-family: "Nanum Myeongjo", serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.25;
+      letter-spacing: -.025em;
+    }
+    .section-heading p { margin-bottom: 0; max-width: 720px; color: var(--muted); }
+
+    .stage-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .stage {
+      position: relative;
+      padding: 22px;
+      border-top: 4px solid var(--line-strong);
+      background: var(--paper);
+    }
+    .stage:nth-child(2) { border-color: var(--amber); }
+    .stage:nth-child(3) { border-color: var(--mint); }
+    .stage small { color: var(--muted); }
+    .stage strong { display: block; margin: 4px 0 7px; font-size: 1.12rem; }
+    .stage p { margin: 0; color: var(--muted); font-size: .9rem; }
+
+    .callout {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--navy-soft);
+    }
+    .callout .symbol {
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: var(--paper);
+      font-weight: 700;
+    }
+    .callout strong { display: block; margin-bottom: 3px; }
+    .callout p { margin: 0; color: var(--muted); font-size: .94rem; }
+
+    .flip-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .flip-card {
+      display: block;
+      width: 100%;
+      min-width: 0;
+      min-height: 255px;
+      padding: 0;
+      border: 0;
+      border-radius: var(--radius-md);
+      background: transparent;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+      perspective: 1100px;
+    }
+    .flip-inner {
+      position: relative;
+      display: block;
+      width: 100%;
+      min-height: 255px;
+      transform-style: preserve-3d;
+      transition: transform .45s cubic-bezier(.2,.75,.25,1);
+    }
+    .flip-card.is-flipped .flip-inner { transform: rotateY(180deg); }
+    .flip-face {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      box-shadow: 0 9px 22px rgba(22, 32, 40, .06);
+    }
+    .flip-front { justify-content: space-between; background: var(--paper); }
+    .flip-back { transform: rotateY(180deg); justify-content: space-between; background: var(--paper-soft); }
+    .card-index { color: var(--line-strong); font-size: .82rem; font-weight: 700; }
+    .card-icon {
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--navy-soft);
+      color: var(--navy);
+    }
+    .flip-face h3 { margin: 14px 0 8px; font-size: 1.25rem; line-height: 1.4; }
+    .flip-face p { margin: 0; color: var(--muted); font-size: .93rem; }
+    .tap-hint { color: var(--mint); font-size: .82rem; font-weight: 700; }
+    .flip-back .tap-hint { color: var(--muted); }
+
+    .quiz-shell {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+    .quiz-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--line);
+    }
+    .progress-track { flex: 1; height: 8px; overflow: hidden; border-radius: 99px; background: var(--paper-soft); }
+    .progress-bar { height: 100%; width: 16.67%; border-radius: inherit; background: var(--mint); transition: width .3s ease; }
+    .progress-label { min-width: 62px; color: var(--muted); font-size: .88rem; font-weight: 700; text-align: right; }
+    .quiz-body { min-height: 430px; padding: clamp(26px, 5vw, 58px); }
+    .quiz-kicker { margin-bottom: 9px; color: var(--mint); font-size: .85rem; font-weight: 700; }
+    .quiz-question { max-width: 740px; margin-bottom: 28px; font-family: "Nanum Myeongjo", serif; font-size: clamp(1.55rem, 3vw, 2.25rem); line-height: 1.42; }
+    .answers { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .answer {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-height: 76px;
+      padding: 17px 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--paper);
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+      transition: border-color .16s ease, background .16s ease;
+    }
+    .answer:hover { border-color: var(--mint); background: var(--mint-soft); }
+    .answer-mark {
+      display: grid;
+      place-items: center;
+      flex: 0 0 30px;
+      width: 30px;
+      height: 30px;
+      border: 1px solid var(--line-strong);
+      border-radius: 50%;
+      font-size: .8rem;
+      font-weight: 700;
+    }
+    .quiz-note { margin: 20px 0 0; color: var(--muted); font-size: .88rem; }
+
+    .result { display: none; }
+    .result.show { display: block; }
+    .result-label { margin-bottom: 9px; color: var(--mint); font-size: .9rem; font-weight: 700; }
+    .result h3 { margin-bottom: 14px; font-family: "Nanum Myeongjo", serif; font-size: clamp(1.75rem, 4vw, 2.7rem); }
+    .result > p { max-width: 740px; color: var(--muted); }
+    .result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 26px 0; }
+    .result-box { padding: 18px; border-top: 3px solid var(--mint); background: var(--paper-soft); }
+    .result-box:nth-child(2) { border-color: var(--amber); }
+    .result-box:nth-child(3) { border-color: var(--coral); }
+    .result-box strong { display: block; margin-bottom: 5px; }
+    .result-box p { margin: 0; color: var(--muted); font-size: .9rem; }
+
+    .profile-tabs { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 20px; }
+    .profile-tab {
+      padding: 10px 15px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--muted);
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .profile-tab.active { border-color: var(--navy); background: var(--navy); color: var(--paper); }
+    .profile-panel {
+      display: none;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: var(--paper);
+    }
+    .profile-panel.active { display: grid; }
+    .profile-summary { padding: clamp(24px, 5vw, 42px); background: var(--navy-soft); }
+    .profile-summary .profile-code { color: var(--navy); font-size: .82rem; font-weight: 700; }
+    .profile-summary h3 { margin: 10px 0 13px; font-family: "Nanum Myeongjo", serif; font-size: 1.75rem; }
+    .profile-summary p { margin-bottom: 0; color: var(--muted); }
+    .profile-detail { padding: clamp(24px, 5vw, 42px); }
+    .profile-detail h4 { margin: 0 0 12px; font-size: 1rem; }
+    .profile-detail ul { margin: 0 0 22px; padding-left: 20px; color: var(--muted); }
+    .question-cards { display: grid; gap: 8px; }
+    .question-card { padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--bg); font-weight: 600; }
+
+    .decision-path { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .decision-step {
+      position: relative;
+      min-height: 230px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+    }
+    .decision-step::after {
+      content: "→";
+      position: absolute;
+      right: -19px;
+      top: 50%;
+      z-index: 2;
+      transform: translateY(-50%);
+      color: var(--line-strong);
+      font-size: 1.3rem;
+    }
+    .decision-step:last-child::after { display: none; }
+    .step-no { color: var(--mint); font-size: .82rem; font-weight: 700; }
+    .decision-step h3 { margin: 11px 0 9px; font-size: 1.15rem; }
+    .decision-step p { margin: 0; color: var(--muted); font-size: .92rem; }
+
+    .family-note {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      overflow: hidden;
+      margin-top: 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: var(--line);
+    }
+    .note-column { padding: 24px; background: var(--paper); }
+    .note-column h3 { margin-bottom: 12px; font-size: 1.05rem; }
+    .note-column p { margin: 0; color: var(--muted); font-size: .94rem; }
+
+    footer {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: start;
+      padding: 28px 0 10px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .85rem;
+    }
+    .sources { display: flex; flex-wrap: wrap; gap: 10px 18px; }
+    .sources a { color: var(--navy); text-underline-offset: 3px; }
+    .version { white-space: nowrap; }
+
+    @media (max-width: 850px) {
+      .hero { grid-template-columns: 1fr; gap: 28px; }
+      .hero-visual { min-height: 280px; }
+      .deck-card { width: 210px; }
+      .quick-nav { justify-content: flex-start; width: 100%; overflow-x: auto; border-radius: 16px; }
+      .flip-grid { grid-template-columns: repeat(2, 1fr); }
+      .decision-path { grid-template-columns: 1fr 1fr; }
+      .decision-step::after { display: none; }
+      .profile-panel { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .page { width: min(100% - 22px, 1120px); padding-top: 12px; }
+      .hero { min-height: 0; padding: 30px 24px 34px; border-radius: 22px; }
+      .hero-visual { min-height: 250px; }
+      .quick-nav {
+        position: sticky;
+        top: 6px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        overflow: visible;
+        border-radius: 18px;
+        margin-bottom: 48px;
+      }
+      .nav-chip { text-align: center; }
+      section { margin-bottom: 64px; }
+      .section-heading { grid-template-columns: 1fr; gap: 4px; }
+      .section-number { padding-top: 0; }
+      .stage-strip, .flip-grid, .answers, .result-grid, .decision-path, .family-note { grid-template-columns: 1fr; }
+      .stage { padding: 18px; }
+      .flip-card, .flip-inner { min-height: 220px; }
+      .quiz-body { min-height: 510px; padding: 26px 20px 30px; }
+      .answer { min-height: 70px; }
+      .profile-tabs { display: grid; grid-template-columns: 1fr 1fr; }
+      .profile-tab { border-radius: var(--radius-sm); }
+      footer { grid-template-columns: 1fr; }
+      .version { white-space: normal; }
+    }
+
+    /* Full-screen card flow: only the current chapter is visible. */
+    html, body { height: 100%; overflow: hidden; }
+    body { overscroll-behavior: none; }
+    .page {
+      position: relative;
+      width: min(1120px, calc(100% - 36px));
+      height: 100dvh;
+      margin: 0 auto;
+      padding: 18px 0;
+      overflow: hidden;
+    }
+    .scene {
+      display: none;
+      width: 100%;
+      height: calc(100dvh - 36px);
+      margin: 0;
+      padding: 76px 2px 82px;
+      overflow: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+      scrollbar-color: var(--line-strong) transparent;
+    }
+    .scene.active { display: block; }
+    .hero.scene {
+      padding: clamp(28px, 5vw, 62px);
+      overflow: hidden;
+    }
+    .hero.scene.active { display: grid; }
+    .quick-nav {
+      position: absolute;
+      top: 18px;
+      left: 50%;
+      z-index: 20;
+      display: none;
+      margin: 0;
+      transform: translateX(-50%);
+    }
+    .page.has-content-open .quick-nav { display: flex; }
+    .scene-controls {
+      position: absolute;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      z-index: 25;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: min(430px, calc(100% - 24px));
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--paper) 94%, transparent);
+      box-shadow: 0 10px 28px rgba(22, 32, 40, .12);
+      backdrop-filter: blur(12px);
+    }
+    .scene-controls .button {
+      min-height: 42px;
+      padding: 8px 15px;
+      white-space: nowrap;
+    }
+    .scene-home {
+      display: inline-flex;
+      gap: 7px;
+    }
+    .scene-home[hidden] { display: none; }
+    .scene-home svg {
+      width: 16px;
+      height: 16px;
+      flex: 0 0 auto;
+    }
+    .scene-progress {
+      flex: 1;
+      color: var(--muted);
+      font-size: .82rem;
+      font-weight: 700;
+      text-align: center;
+    }
+    .scene-progress span { color: var(--ink); }
+    .scene-control:disabled { opacity: .38; cursor: default; }
+    .sources-scene.active {
+      display: grid;
+      place-content: center;
+      gap: 24px;
+      text-align: center;
+    }
+    .sources-scene .sources { justify-content: center; }
+    .sources-scene .version { margin-top: 18px; }
+
+    @media (max-width: 600px) {
+      .page { width: 100%; height: 100dvh; padding: 0; }
+      .scene {
+        height: 100dvh;
+        padding: 74px 15px 84px;
+      }
+      .hero.scene {
+        min-height: 100dvh;
+        padding: max(24px, env(safe-area-inset-top)) 24px calc(76px + env(safe-area-inset-bottom));
+        border: 0;
+        border-radius: 0;
+      }
+      .hero-copy { align-self: end; }
+      .hero-copy > p { margin-bottom: 20px; }
+      .hero-visual { align-self: start; min-height: 205px; }
+      .deck-card { width: 155px; border-radius: 18px; }
+      .deck-card.front { padding: 18px; }
+      .deck-question { font-size: 1.15rem; }
+      .quick-nav {
+        top: 8px;
+        width: calc(100% - 20px);
+        display: none;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 3px;
+        padding: 5px;
+        border-radius: 14px;
+      }
+      .page.has-content-open .quick-nav { display: grid; }
+      .nav-chip { padding: 8px 5px; font-size: .74rem; }
+      .section-heading { margin-bottom: 20px; }
+      .section-heading p { font-size: .9rem; }
+      .scene-controls {
+        bottom: max(8px, env(safe-area-inset-bottom));
+        gap: 4px;
+        min-width: calc(100% - 20px);
+        padding: 5px;
+      }
+      .scene-controls .button { min-width: 62px; padding: 8px; font-size: .82rem; }
+      .scene-home { gap: 5px; }
+      .scene-progress { min-width: 42px; font-size: .73rem; }
+      .profile-tabs { grid-template-columns: 1fr 1fr; }
+      .profile-summary, .profile-detail { padding: 20px; }
+      .sources-scene { padding-left: 24px; padding-right: 24px; }
+    }
+
+    @media (max-height: 720px) and (min-width: 601px) {
+      .scene { padding-top: 66px; }
+      .section-heading { margin-bottom: 18px; }
+      .hero.scene { padding: 28px 46px 72px; }
+      .hero-visual { min-height: 260px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+  <main class="page" id="main">
+    <section class="hero scene active" aria-labelledby="hero-title" data-scene="cover">
+      <div class="hero-copy">
+        <div class="eyebrow">한국 고등학생을 위한 첫 안내</div>
+        <h1 id="hero-title">내가 좋아하는 배움에서 시작해요</h1>
+        <p>IB가 무엇인지 5분 안에 감을 잡고, 짧은 질문을 따라가며 나에게 맞는 과목 탐색 방향을 찾아보세요. 정답을 고르는 시험이 아니라, 학교와 대화하기 전 생각을 정리하는 출발점입니다.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#fit">성향 카드 시작</a>
+          <a class="button" href="#basics">IB부터 알아보기</a>
+        </div>
+        <span class="hero-signature">heeju @NaeSon Junior &amp; Senior High School</span>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="deck-card back"></div>
+        <div class="deck-card mid"></div>
+        <div class="deck-card front">
+          <span class="deck-num">QUESTION 01</span>
+          <p class="deck-question">나는 어떤 질문을 오래 붙잡고 있을까?</p>
+          <div class="deck-mark"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="quick-nav" aria-label="페이지 바로가기">
+      <a class="nav-chip active" href="#basics">IB 한눈에</a>
+      <a class="nav-chip" href="#fit">성향 찾기</a>
+      <a class="nav-chip" href="#profiles">탐색 방향</a>
+      <a class="nav-chip" href="#next">선택 순서</a>
+    </nav>
+
+    <section class="scene" id="basics" aria-labelledby="basics-title" data-scene="basics" hidden>
+      <div class="section-heading">
+        <div class="section-number">01 / 04</div>
+        <div>
+          <h2 id="basics-title">먼저, 학교의 단계를 구분해요</h2>
+          <p>‘IB를 준비하는 학교’와 ‘IB 인증을 받은 학교’는 같은 뜻이 아닙니다. 후보학교는 월드스쿨 인증을 향해 절차를 밟는 단계예요.</p>
+        </div>
+      </div>
+
+      <div class="stage-strip" aria-label="IB 학교 단계">
+        <article class="stage">
+          <small>시작</small>
+          <strong>관심학교</strong>
+          <p>IB 철학과 운영 가능성을 살피고 학교 구성원이 함께 준비하는 단계</p>
+        </article>
+        <article class="stage">
+          <small>준비 중</small>
+          <strong>후보학교</strong>
+          <p>IB의 지원과 점검을 받으며 인증 요건을 구체적으로 갖춰 가는 단계</p>
+        </article>
+        <article class="stage">
+          <small>공식 인증</small>
+          <strong>IB 월드스쿨</strong>
+          <p>인증 절차를 통과해 해당 IB 프로그램을 정식으로 운영하는 학교</p>
+        </article>
+      </div>
+
+      <div class="callout">
+        <div class="symbol">i</div>
+        <div>
+          <strong>후보학교 학생이라면 학교 안내가 최우선이에요.</strong>
+          <p>실제 개설 과목, 수업 언어, 평가 운영, 대학 진학 지원 방식은 학교마다 다를 수 있습니다. 이 카드는 학교 설명회와 상담에서 무엇을 물어볼지 준비하는 도구로 사용하세요.</p>
+        </div>
+      </div>
+
+      <div class="section-heading" style="margin-top: 48px; margin-bottom: 22px;">
+        <div class="section-number">DP</div>
+        <div>
+          <h2 style="font-size: clamp(1.55rem,3vw,2.2rem);">고등 과정 DP의 큰 그림</h2>
+          <p>아래 카드를 눌러 앞·뒷면을 확인해 보세요.</p>
+        </div>
+      </div>
+
+      <div class="flip-grid">
+        <button class="flip-card" type="button" aria-pressed="false" aria-label="6개 교과군 카드 뒤집기">
+          <span class="flip-inner">
+            <span class="flip-face flip-front">
+              <span><span class="card-index">CARD 01</span><span class="card-icon" aria-hidden="true">6</span></span>
+              <span><h3>6개 교과군</h3><p>언어·사회·과학·수학·예술 영역을 균형 있게 살펴봐요.</p></span>
+              <span class="tap-hint">눌러서 자세히</span>
+            </span>
+            <span class="flip-face flip-back">
+              <span><span class="card-index">WHAT IT MEANS</span><h3>폭과 깊이를 함께</h3><p>DP는 여섯 과목을 공부하며, 학교가 제공하는 범위 안에서 HL과 SL을 조합합니다. 과목명과 개설 여부는 반드시 학교에 확인하세요.</p></span>
+              <span class="tap-hint">다시 눌러 앞면</span>
+            </span>
+          </span>
+        </button>
+
+        <button class="flip-card" type="button" aria-pressed="false" aria-label="HL과 SL 카드 뒤집기">
+          <span class="flip-inner">
+            <span class="flip-face flip-front">
+              <span><span class="card-index">CARD 02</span><span class="card-icon" aria-hidden="true">↕</span></span>
+              <span><h3>HL · SL</h3><p>좋아한다는 이유만큼, 시간과 깊이를 감당할 수 있는지도 중요해요.</p></span>
+              <span class="tap-hint">눌러서 자세히</span>
+            </span>
+            <span class="flip-face flip-back">
+              <span><span class="card-index">WHAT IT MEANS</span><h3>더 깊게, 또는 탄탄하게</h3><p>HL은 더 넓고 깊은 학습을 요구합니다. 진로 연관성, 현재 기초, 학습량을 함께 보고 정하는 것이 좋아요.</p></span>
+              <span class="tap-hint">다시 눌러 앞면</span>
+            </span>
+          </span>
+        </button>
+
+        <button class="flip-card" type="button" aria-pressed="false" aria-label="DP 코어 카드 뒤집기">
+          <span class="flip-inner">
+            <span class="flip-face flip-front">
+              <span><span class="card-index">CARD 03</span><span class="card-icon" aria-hidden="true">＋</span></span>
+              <span><h3>코어 3요소</h3><p>TOK·EE·CAS는 교과 밖에서 생각하고, 쓰고, 실천하는 중심축이에요.</p></span>
+              <span class="tap-hint">눌러서 자세히</span>
+            </span>
+            <span class="flip-face flip-back">
+              <span><span class="card-index">WHAT IT MEANS</span><h3>생각 · 연구 · 실천</h3><p>TOK는 지식에 대해 질문하고, EE는 한 주제를 길게 연구하며, CAS는 창의·활동·봉사 경험을 돌아보게 합니다.</p></span>
+              <span class="tap-hint">다시 눌러 앞면</span>
+            </span>
+          </span>
+        </button>
+
+        <button class="flip-card" type="button" aria-pressed="false" aria-label="평가 방식 카드 뒤집기">
+          <span class="flip-inner">
+            <span class="flip-face flip-front">
+              <span><span class="card-index">CARD 04</span><span class="card-icon" aria-hidden="true">✓</span></span>
+              <span><h3>평가는 한 번이 아니에요</h3><p>기말 시험만이 아니라 과목별 수행과 내부 평가도 함께 만나요.</p></span>
+              <span class="tap-hint">눌러서 자세히</span>
+            </span>
+            <span class="flip-face flip-back">
+              <span><span class="card-index">WHAT IT MEANS</span><h3>과정 관리가 핵심</h3><p>대부분 과목은 외부 시험과 학교 안 평가 요소를 함께 사용합니다. 마감·초안·피드백을 꾸준히 관리하는 힘이 중요해요.</p></span>
+              <span class="tap-hint">다시 눌러 앞면</span>
+            </span>
+          </span>
+        </button>
+
+        <button class="flip-card" type="button" aria-pressed="false" aria-label="점수 카드 뒤집기">
+          <span class="flip-inner">
+            <span class="flip-face flip-front">
+              <span><span class="card-index">CARD 05</span><span class="card-icon" aria-hidden="true">45</span></span>
+              <span><h3>45점의 구조</h3><p>여섯 과목 점수에 TOK·EE 보너스 점수가 더해질 수 있어요.</p></span>
+              <span class="tap-hint">눌러서 자세히</span>
+            </span>
+            <span class="flip-face flip-back">
+              <span><span class="card-index">WHAT IT MEANS</span><h3>과목 42 + 코어 3</h3><p>각 과목은 1~7점이며 TOK와 EE가 최대 3점을 더합니다. 디플로마는 총점 외에도 코어 이수 등 최소 요건을 충족해야 해요.</p></span>
+              <span class="tap-hint">다시 눌러 앞면</span>
+            </span>
+          </span>
+        </button>
+
+        <button class="flip-card" type="button" aria-pressed="false" aria-label="국내 진학 카드 뒤집기">
+          <span class="flip-inner">
+            <span class="flip-face flip-front">
+              <span><span class="card-index">CARD 06</span><span class="card-icon" aria-hidden="true">KR</span></span>
+              <span><h3>한국 진학은 따로 확인</h3><p>IB를 한다는 사실만으로 모든 대학·전형이 같은 방식으로 평가하지 않아요.</p></span>
+              <span class="tap-hint">눌러서 자세히</span>
+            </span>
+            <span class="flip-face flip-back">
+              <span><span class="card-index">WHAT IT MEANS</span><h3>대학·학과·전형별로</h3><p>목표 시기 대학의 공식 모집요강과 학교 진학 담당 안내를 함께 확인하세요. 지금은 ‘어떤 배움을 오래 할 수 있는가’를 먼저 찾습니다.</p></span>
+              <span class="tap-hint">다시 눌러 앞면</span>
+            </span>
+          </span>
+        </button>
+      </div>
+    </section>
+
+    <section class="scene" id="fit" aria-labelledby="fit-title" data-scene="fit" hidden>
+      <div class="section-heading">
+        <div class="section-number">02 / 04</div>
+        <div>
+          <h2 id="fit-title">나의 탐색 성향을 찾아봐요</h2>
+          <p>여섯 질문에 지금 마음과 더 가까운 답을 골라보세요. 결과는 과목을 확정하는 판정이 아니라, 상담을 시작할 힌트입니다.</p>
+        </div>
+      </div>
+
+      <div class="quiz-shell" id="quizShell">
+        <div class="quiz-top">
+          <div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+          <div class="progress-label" id="progressLabel">1 / 6</div>
+        </div>
+        <div class="quiz-body" id="quizBody">
+          <div class="question-view" id="questionView">
+            <div class="quiz-kicker">QUESTION <span id="questionNo">01</span></div>
+            <h3 class="quiz-question" id="questionText"></h3>
+            <div class="answers" id="answers"></div>
+            <p class="quiz-note">고민되면 ‘더 자주 하는 쪽’을 골라보세요. 이전 답으로 돌아가고 싶다면 결과에서 다시 시작할 수 있어요.</p>
+          </div>
+          <div class="result" id="result" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene" id="profiles" aria-labelledby="profiles-title" data-scene="profiles" hidden>
+      <div class="section-heading">
+        <div class="section-number">03 / 04</div>
+        <div>
+          <h2 id="profiles-title">관심 방향별로 질문을 바꿔봐요</h2>
+          <p>‘무슨 과목이 유리하지?’보다 ‘어떤 공부를 계속해도 덜 지칠까?’에서 시작합니다. 아래 예시는 학교 상담 전 탐색용입니다.</p>
+        </div>
+      </div>
+
+      <div class="profile-tabs" role="tablist" aria-label="관심 방향 선택">
+        <button class="profile-tab active" role="tab" aria-selected="true" aria-controls="profile-inquiry" id="tab-inquiry" data-profile="inquiry">인문·사회 탐구</button>
+        <button class="profile-tab" role="tab" aria-selected="false" aria-controls="profile-logic" id="tab-logic" data-profile="logic">수리·공학</button>
+        <button class="profile-tab" role="tab" aria-selected="false" aria-controls="profile-life" id="tab-life" data-profile="life">생명·건강</button>
+        <button class="profile-tab" role="tab" aria-selected="false" aria-controls="profile-language" id="tab-language" data-profile="language">언어·문화</button>
+        <button class="profile-tab" role="tab" aria-selected="false" aria-controls="profile-create" id="tab-create" data-profile="create">창작·기획</button>
+      </div>
+
+      <div class="profile-panel active" id="profile-inquiry" role="tabpanel" aria-labelledby="tab-inquiry">
+        <div class="profile-summary"><span class="profile-code">DIRECTION A</span><h3>사람과 사회의 ‘왜’를 파고들기</h3><p>뉴스, 역사적 맥락, 정책, 사람의 선택을 연결해서 보는 일이 흥미롭다면 이 방향을 먼저 살펴보세요.</p></div>
+        <div class="profile-detail"><h4>먼저 탐색할 영역</h4><ul><li>개인과 사회 교과군의 학교 개설 과목</li><li>글쓰기와 근거 제시에 필요한 언어 과목</li><li>관심 주제로 이어질 수 있는 EE 가능성</li></ul><h4>상담에서 물어볼 질문</h4><div class="question-cards"><div class="question-card">이 과목은 자료 분석과 에세이 비중이 어느 정도인가요?</div><div class="question-card">우리 학교에서는 어떤 주제의 내부 평가를 많이 하나요?</div></div></div>
+      </div>
+      <div class="profile-panel" id="profile-logic" role="tabpanel" aria-labelledby="tab-logic" hidden>
+        <div class="profile-summary"><span class="profile-code">DIRECTION B</span><h3>숫자와 원리로 문제 풀기</h3><p>복잡한 문제를 구조화하거나 실험·계산으로 가설을 확인할 때 재미를 느낀다면 이 방향이 가까울 수 있어요.</p></div>
+        <div class="profile-detail"><h4>먼저 탐색할 영역</h4><ul><li>수학 과목의 접근 방식과 요구되는 기초</li><li>물리·화학 등 과학 과목의 실험과 평가 구성</li><li>희망 전공이 요구하는 과목 수준</li></ul><h4>상담에서 물어볼 질문</h4><div class="question-cards"><div class="question-card">수학 선택지별 수업 방식과 선수 학습 차이는 무엇인가요?</div><div class="question-card">과학 실험 보고서는 어떤 흐름으로 준비하나요?</div></div></div>
+      </div>
+      <div class="profile-panel" id="profile-life" role="tabpanel" aria-labelledby="tab-life" hidden>
+        <div class="profile-summary"><span class="profile-code">DIRECTION C</span><h3>생명과 건강의 연결 이해하기</h3><p>생명 현상을 관찰하고 원인을 찾아가는 과정, 건강과 환경 문제를 함께 보는 관점에 끌린다면 살펴보세요.</p></div>
+        <div class="profile-detail"><h4>먼저 탐색할 영역</h4><ul><li>생물·화학 등 학교의 과학 과목 조합</li><li>실험 설계와 데이터 처리에 필요한 역량</li><li>지원하려는 대학·학과의 과목 요구 조건</li></ul><h4>상담에서 물어볼 질문</h4><div class="question-cards"><div class="question-card">두 과학 과목을 함께 선택할 수 있는 구조인가요?</div><div class="question-card">실험, 보고서, 시험의 학습량은 어떻게 배분되나요?</div></div></div>
+      </div>
+      <div class="profile-panel" id="profile-language" role="tabpanel" aria-labelledby="tab-language" hidden>
+        <div class="profile-summary"><span class="profile-code">DIRECTION D</span><h3>언어로 세계를 넓혀 보기</h3><p>문학, 말의 뉘앙스, 다른 문화의 관점을 비교하는 일이 좋다면 언어 교과에서 강점을 찾을 수 있어요.</p></div>
+        <div class="profile-detail"><h4>먼저 탐색할 영역</h4><ul><li>언어와 문학, 언어 습득 과목의 차이</li><li>수업 언어와 읽기·쓰기 요구 수준</li><li>관심 문화나 작품을 확장할 EE 주제</li></ul><h4>상담에서 물어볼 질문</h4><div class="question-cards"><div class="question-card">읽기 목록과 구술 평가를 어떻게 준비하나요?</div><div class="question-card">현재 언어 수준에서 도전 가능한 과목 수준은 무엇인가요?</div></div></div>
+      </div>
+      <div class="profile-panel" id="profile-create" role="tabpanel" aria-labelledby="tab-create" hidden>
+        <div class="profile-summary"><span class="profile-code">DIRECTION E</span><h3>아이디어를 결과물로 만들기</h3><p>보이는 결과물을 만들고, 여러 가능성을 실험하며, 자신의 선택을 설명하는 일이 즐겁다면 이 방향을 살펴보세요.</p></div>
+        <div class="profile-detail"><h4>먼저 탐색할 영역</h4><ul><li>예술 교과와 학교별 포트폴리오 운영 방식</li><li>창작 과정 기록에 필요한 시간</li><li>다른 교과와 연결하는 주제 설계</li></ul><h4>상담에서 물어볼 질문</h4><div class="question-cards"><div class="question-card">완성작과 과정 기록은 각각 어떻게 평가되나요?</div><div class="question-card">학교 시설과 지도 가능한 창작 분야는 무엇인가요?</div></div></div>
+      </div>
+    </section>
+
+    <section class="scene" id="next" aria-labelledby="next-title" data-scene="next" hidden>
+      <div class="section-heading">
+        <div class="section-number">04 / 04</div>
+        <div>
+          <h2 id="next-title">과목 선택은 이 순서로 좁혀요</h2>
+          <p>진로 하나만 보고 바로 HL·SL을 정하지 말고, 흥미·현재 역량·학교 조건·대학 요건을 차례로 겹쳐 보세요.</p>
+        </div>
+      </div>
+
+      <div class="decision-path">
+        <article class="decision-step"><span class="step-no">STEP 1</span><h3>흥미 기록</h3><p>최근 한 달 동안 스스로 더 찾아본 주제, 시간 가는 줄 몰랐던 활동을 세 가지 적습니다.</p></article>
+        <article class="decision-step"><span class="step-no">STEP 2</span><h3>학습 방식 점검</h3><p>읽기·쓰기·계산·실험·말하기·만들기 중 내가 오래 버틸 수 있는 방식을 찾습니다.</p></article>
+        <article class="decision-step"><span class="step-no">STEP 3</span><h3>학교 조건 확인</h3><p>개설 과목, HL·SL 조합, 수업 언어, 시간표, 담당 교사 안내를 학교에 확인합니다.</p></article>
+        <article class="decision-step"><span class="step-no">STEP 4</span><h3>진학 요건 대조</h3><p>관심 대학·학과의 공식 요건과 모집요강을 확인한 뒤 최종 조합을 상담합니다.</p></article>
+      </div>
+
+      <div class="family-note">
+        <div class="note-column"><h3>학생에게 좋은 한 문장</h3><p>“잘하는 과목 하나보다, 2년 동안 꾸준히 해낼 조합을 찾아보자.”</p></div>
+        <div class="note-column"><h3>보호자에게 좋은 한 문장</h3><p>“결과를 먼저 정하기보다, 어떤 배움에서 아이의 질문이 살아나는지 함께 보자.”</p></div>
+      </div>
+    </section>
+
+    <footer class="scene sources-scene" data-scene="sources" hidden>
+      <div>
+        <strong>근거 자료</strong>
+        <div class="sources">
+          <a href="https://ibo.org/programmes/diploma-programme/curriculum/" target="_blank" rel="noreferrer">IBO · DP 교육과정</a>
+          <a href="https://www.ibo.org/programmes/diploma-programme/assessment-and-exams/understanding-ib-assessment" target="_blank" rel="noreferrer">IBO · DP 평가</a>
+          <a href="https://www.ibo.org/news/news-about-ib-schools/new-tool-for-ib-candidate-schools-to-project-authorization-timeline/" target="_blank" rel="noreferrer">IBO · 후보학교 인증 절차</a>
+        </div>
+      </div>
+      <div class="version">초안 v0.1 · 2026.10</div>
+    </footer>
+
+    <div class="scene-controls" aria-label="화면 이동">
+      <button class="button scene-control scene-home" type="button" id="firstScene" hidden aria-label="첫 화면으로 이동">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.2 12 4l9 7.2M5.5 10v9h13v-9M9.5 19v-5h5v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>첫 화면</span>
+      </button>
+      <button class="button scene-control" type="button" id="prevScene">이전</button>
+      <div class="scene-progress" id="sceneProgress" aria-live="polite"><span>표지</span> · 1 / 6</div>
+      <button class="button primary scene-control" type="button" id="nextScene">시작하기</button>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      var flipCards = document.querySelectorAll('.flip-card');
+      flipCards.forEach(function (card) {
+        card.addEventListener('click', function () {
+          var flipped = card.classList.toggle('is-flipped');
+          card.setAttribute('aria-pressed', flipped ? 'true' : 'false');
+        });
+      });
+
+      var profileTabs = document.querySelectorAll('.profile-tab');
+      var profilePanels = document.querySelectorAll('.profile-panel');
+      profileTabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          var target = tab.getAttribute('data-profile');
+          profileTabs.forEach(function (item) {
+            var active = item === tab;
+            item.classList.toggle('active', active);
+            item.setAttribute('aria-selected', active ? 'true' : 'false');
+          });
+          profilePanels.forEach(function (panel) {
+            var active = panel.id === 'profile-' + target;
+            panel.classList.toggle('active', active);
+            panel.hidden = !active;
+          });
+        });
+      });
+
+      var questions = [
+        { q: '과제를 시작할 때, 더 끌리는 출발점은?', a: [
+          ['사람들의 선택과 사회 현상을 먼저 살핀다', 'inquiry'],
+          ['규칙이나 숫자 속 패턴을 먼저 찾는다', 'logic'],
+          ['직접 관찰하거나 실험할 방법을 떠올린다', 'life'],
+          ['말·글·이미지로 표현할 장면을 그린다', 'create']
+        ]},
+        { q: '한 주제를 오래 파고들 때 가장 즐거운 순간은?', a: [
+          ['서로 다른 자료의 관점을 비교할 때', 'inquiry'],
+          ['복잡한 문제가 깔끔하게 풀릴 때', 'logic'],
+          ['원인을 추측하고 결과로 확인할 때', 'life'],
+          ['내 방식으로 새롭게 설명하거나 만들 때', 'create']
+        ]},
+        { q: '친구가 어려운 내용을 물어보면 나는?', a: [
+          ['배경과 맥락부터 이야기해 준다', 'inquiry'],
+          ['단계와 공식을 정리해 준다', 'logic'],
+          ['예시나 관찰 결과를 보여준다', 'life'],
+          ['비유나 그림, 표현을 바꿔 설명한다', 'language']
+        ]},
+        { q: '수업 밖에서 자주 찾아보는 것은?', a: [
+          ['뉴스·역사·사람들의 이야기', 'inquiry'],
+          ['기술·수학 퍼즐·작동 원리', 'logic'],
+          ['생명·건강·환경 이야기', 'life'],
+          ['책·언어·문화·콘텐츠', 'language']
+        ]},
+        { q: '긴 과제에서 비교적 자신 있는 부분은?', a: [
+          ['주장을 세우고 근거를 연결하기', 'inquiry'],
+          ['자료를 수치로 정리하고 분석하기', 'logic'],
+          ['가설을 세우고 방법을 설계하기', 'life'],
+          ['독자가 이해하기 좋은 결과물로 다듬기', 'create']
+        ]},
+        { q: '2년 동안 계속해도 덜 지칠 것 같은 활동은?', a: [
+          ['읽고 토론하며 생각을 글로 정리하기', 'language'],
+          ['어려운 문제를 여러 방식으로 풀기', 'logic'],
+          ['관찰·실험 기록을 쌓아 결론 내리기', 'life'],
+          ['아이디어를 작품이나 프로젝트로 발전시키기', 'create']
+        ]}
+      ];
+
+      var resultData = {
+        inquiry: { title: '맥락을 연결하는 탐구형', text: '사람과 사회의 움직임을 여러 관점에서 읽고, 근거를 모아 자신의 생각을 세우는 쪽에 에너지가 있어요.', area: '개인과 사회 · 언어와 문학', habit: '긴 글을 읽고 핵심 주장 표시하기', ask: '에세이와 자료 분석 비중은?' },
+        logic: { title: '구조를 찾는 논리형', text: '복잡한 문제 안에서 규칙을 찾고, 정확한 절차로 해결하는 과정에서 성취감을 느끼는 편이에요.', area: '수학 · 물리·화학 등 과학', habit: '풀이 과정을 말로 설명해 보기', ask: '선택지별 기초와 학습량 차이는?' },
+        life: { title: '관찰로 확인하는 실험형', text: '생명과 환경의 원인을 궁금해하고, 가설을 관찰·데이터로 확인하는 과정과 잘 맞을 수 있어요.', area: '생물·화학 등 과학', habit: '관찰→가설→결과를 짧게 기록하기', ask: '실험과 내부 평가 운영은?' },
+        language: { title: '관점을 번역하는 언어형', text: '말과 글의 뉘앙스, 작품 속 관점, 서로 다른 문화 사이의 차이를 발견하는 데 강점이 있어요.', area: '언어와 문학 · 언어 습득', habit: '한 내용을 두 방식으로 다시 써 보기', ask: '읽기·쓰기·구술의 비중은?' },
+        create: { title: '아이디어를 구현하는 창작형', text: '생각을 눈에 보이는 결과물로 만들고, 시행착오와 선택의 과정을 설명할 때 몰입하는 편이에요.', area: '예술 · 프로젝트형 탐구', habit: '완성물보다 과정 노트를 남기기', ask: '포트폴리오와 과정 평가는?' }
+      };
+
+      var current = 0;
+      var scores = { inquiry: 0, logic: 0, life: 0, language: 0, create: 0 };
+      var questionText = document.getElementById('questionText');
+      var questionNo = document.getElementById('questionNo');
+      var answers = document.getElementById('answers');
+      var progressBar = document.getElementById('progressBar');
+      var progressLabel = document.getElementById('progressLabel');
+      var questionView = document.getElementById('questionView');
+      var result = document.getElementById('result');
+
+      function renderQuestion() {
+        var item = questions[current];
+        questionNo.textContent = String(current + 1).padStart(2, '0');
+        questionText.textContent = item.q;
+        answers.innerHTML = '';
+        item.a.forEach(function (option, idx) {
+          var button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'answer';
+          button.innerHTML = '<span class="answer-mark">' + String.fromCharCode(65 + idx) + '</span><span>' + option[0] + '</span>';
+          button.addEventListener('click', function () { choose(option[1]); });
+          answers.appendChild(button);
+        });
+        var pct = ((current + 1) / questions.length) * 100;
+        progressBar.style.width = pct + '%';
+        progressLabel.textContent = (current + 1) + ' / ' + questions.length;
+      }
+
+      function choose(key) {
+        scores[key] += 1;
+        current += 1;
+        if (current < questions.length) {
+          renderQuestion();
+          questionText.focus && questionText.focus();
+        } else {
+          showResult();
+        }
+      }
+
+      function showResult() {
+        var order = ['inquiry', 'logic', 'life', 'language', 'create'];
+        var top = order[0];
+        order.forEach(function (key) {
+          if (scores[key] > scores[top]) top = key;
+        });
+        var data = resultData[top];
+        questionView.style.display = 'none';
+        result.innerHTML = '<div class="result-label">나의 첫 탐색 방향</div>' +
+          '<h3>' + data.title + '</h3>' +
+          '<p>' + data.text + ' 이 결과 하나로 HL·SL을 정하지 말고, 아래 세 가지를 학교 상담에서 확인해 보세요.</p>' +
+          '<div class="result-grid">' +
+            '<div class="result-box"><strong>먼저 볼 영역</strong><p>' + data.area + '</p></div>' +
+            '<div class="result-box"><strong>시험해 볼 습관</strong><p>' + data.habit + '</p></div>' +
+            '<div class="result-box"><strong>학교에 물어보기</strong><p>' + data.ask + '</p></div>' +
+          '</div>' +
+          '<div class="hero-actions"><a class="button primary" href="#profiles">방향별 카드 보기</a><button class="button" type="button" id="restartQuiz">다시 해보기</button></div>';
+        result.classList.add('show');
+        progressBar.style.width = '100%';
+        progressLabel.textContent = '완료';
+        document.getElementById('restartQuiz').addEventListener('click', restartQuiz);
+      }
+
+      function restartQuiz() {
+        current = 0;
+        scores = { inquiry: 0, logic: 0, life: 0, language: 0, create: 0 };
+        result.classList.remove('show');
+        result.innerHTML = '';
+        questionView.style.display = 'block';
+        renderQuestion();
+      }
+
+      renderQuestion();
+
+      var page = document.querySelector('.page');
+      var scenes = Array.prototype.slice.call(document.querySelectorAll('[data-scene]'));
+      var navLinks = document.querySelectorAll('.nav-chip');
+      var firstScene = document.getElementById('firstScene');
+      var prevScene = document.getElementById('prevScene');
+      var nextScene = document.getElementById('nextScene');
+      var sceneProgress = document.getElementById('sceneProgress');
+      var sceneNames = ['표지', 'IB 한눈에', '성향 찾기', '탐색 방향', '선택 순서', '근거 자료'];
+      var sceneIndex = 0;
+
+      function showScene(index, updateHash) {
+        sceneIndex = Math.max(0, Math.min(index, scenes.length - 1));
+        scenes.forEach(function (scene, i) {
+          var active = i === sceneIndex;
+          scene.classList.toggle('active', active);
+          scene.hidden = !active;
+          scene.setAttribute('aria-hidden', active ? 'false' : 'true');
+          if (active) scene.scrollTop = 0;
+        });
+        page.classList.toggle('has-content-open', sceneIndex > 0);
+        firstScene.hidden = sceneIndex === 0;
+        prevScene.disabled = sceneIndex === 0;
+        nextScene.disabled = sceneIndex === scenes.length - 1;
+        nextScene.textContent = sceneIndex === 0 ? '시작하기' : (sceneIndex === scenes.length - 2 ? '자료 보기' : '다음');
+        sceneProgress.innerHTML = '<span>' + sceneNames[sceneIndex] + '</span> · ' + (sceneIndex + 1) + ' / ' + scenes.length;
+        navLinks.forEach(function (link) {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + scenes[sceneIndex].id);
+        });
+        if (updateHash && scenes[sceneIndex].id) history.replaceState(null, '', '#' + scenes[sceneIndex].id);
+      }
+
+      function sceneForHash(hash) {
+        if (!hash) return -1;
+        return scenes.findIndex(function (scene) { return scene.id === hash.replace('#', ''); });
+      }
+
+      document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+        link.addEventListener('click', function (event) {
+          var targetIndex = sceneForHash(link.getAttribute('href'));
+          if (targetIndex > -1) {
+            event.preventDefault();
+            showScene(targetIndex, true);
+          }
+        });
+      });
+      firstScene.addEventListener('click', function () { showScene(0, true); });
+      prevScene.addEventListener('click', function () { showScene(sceneIndex - 1, true); });
+      nextScene.addEventListener('click', function () { showScene(sceneIndex + 1, true); });
+      document.addEventListener('keydown', function (event) {
+        if (event.altKey || event.ctrlKey || event.metaKey) return;
+        var tag = event.target && event.target.tagName;
+        if (tag === 'BUTTON' || tag === 'A') return;
+        if (event.key === 'ArrowRight' || event.key === 'PageDown') showScene(sceneIndex + 1, true);
+        if (event.key === 'ArrowLeft' || event.key === 'PageUp') showScene(sceneIndex - 1, true);
+      });
+
+      var initialScene = sceneForHash(location.hash);
+      showScene(initialScene > -1 ? initialScene : 0, false);
+    })();
+  </script>
+</body>
+</html>
